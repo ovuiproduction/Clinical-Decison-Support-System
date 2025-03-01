@@ -1,0 +1,518 @@
+:root {
+  --primary-blue: #1A237E;
+  --accent-blue: #2196F3;
+  --background: #F8F9FF;
+  --text-dark: #2C3E50;
+  --success-green: #4CAF50;
+  --warning-red: #FF5252;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.root-predict-disease {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--background);
+  margin: 0;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.predictDisease_diagnosis-container {
+  max-width: 80%;
+  margin: 2rem auto;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 2.5rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.predictDisease_diagnosis-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: var(--primary-blue);
+}
+
+.predictDisease_diagnosis-header h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.predictDisease_patient-input-section {
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  background: rgba(244, 247, 254, 0.6);
+  border-radius: 15px;
+}
+
+.predictDisease_input-group label {
+  display: block;
+  margin-bottom: 0.8rem;
+  color: var(--primary-blue);
+  font-weight: 600;
+}
+
+.predictDisease_input-group input {
+  width: 100%;
+  padding: 1.2rem;
+  border: 2px solid rgba(33, 150, 243, 0.2);
+  border-radius: 12px;
+  font-size: 1.1rem;
+  transition: var(--transition);
+}
+
+.predictDisease_input-group input:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.15);
+  outline: none;
+}
+
+.predictDisease_symptom-selection-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.predictDisease_symptom-column h3 {
+  color: var(--primary-blue);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.predictDisease_symptom-list {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 1rem;
+  border-radius: 12px;
+  background: rgba(244, 247, 254, 0.4);
+}
+
+.predictDisease_symptom-card {
+  background: white;
+  font-size: 18px;
+  border: 2px solid rgba(33, 150, 243, 0.1);
+  padding: 1.2rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.predictDisease_symptom-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(33, 150, 243, 0.1);
+  border-color: var(--accent-blue);
+}
+
+.predictDisease_selected-list {
+  display: grid;
+  gap: 0.8rem;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.predictDisease_selected-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.predictDisease_remove-btn {
+  background: none;
+  border: none;
+  color: var(--warning-red);
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: var(--transition);
+}
+
+.predictDisease_remove-btn:hover {
+  transform: scale(1.1);
+}
+
+.predictDisease_diagnose-btn {
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-blue) 100%);
+  color: white;
+  padding: 1.5rem 3rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem auto;
+}
+
+.predictDisease_diagnose-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(33, 150, 243, 0.3);
+}
+
+.predictDisease_diagnose-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.predictDisease_diagnosis-results {
+  width: 100%;
+  margin-top: 2rem;
+  padding: 2rem;
+  background: rgba(244, 247, 254, 0.6);
+  border-radius: 15px;
+  animation: slideIn 0.4s ease-out;
+}
+
+.predictDisease_disease-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.predictDisease_disease-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid var(--success-green);
+  font-weight: 600;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .predictDisease_symptom-selection-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .predictDisease_diagnosis-container {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  .predictDisease_diagnosis-header h1 {
+    font-size: 2rem;
+  }
+}
+
+.predictDisease_search-box {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.predictDisease_search-box input {
+  width: 100%;
+  padding: 1rem 1rem 1rem 2.5rem;
+  border: 2px solid rgba(33, 150, 243, 0.2);
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: var(--transition);
+  margin-top:2rem;
+}
+
+.predictDisease_search-box input:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.15);
+  outline: none;
+}
+
+.predictDisease_search-box i {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary-blue);
+  opacity: 0.6;
+}
+
+.predictDisease_symptom-list {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.predictDisease_symptom-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.predictDisease_symptom-list::-webkit-scrollbar-track {
+  background: rgba(33, 150, 243, 0.1);
+  border-radius: 4px;
+}
+
+.predictDisease_symptom-list::-webkit-scrollbar-thumb {
+  background: rgba(33, 150, 243, 0.3);
+  border-radius: 4px;
+}
+
+.predictDisease_symptom-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(33, 150, 243, 0.5);
+}
+
+.predictDisease_animated-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.1;
+}
+
+.predictDisease_pulsating-icon {
+  position: absolute;
+  animation: pulse 2s infinite;
+}
+
+.predictDisease_heart-beat {
+  top: 20%;
+  left: 5%;
+  color: var(--warning-red);
+  font-size: 3rem;
+}
+
+.predictDisease_floating-icon {
+  position: absolute;
+  animation: float 6s infinite;
+  opacity: 0.2;
+}
+
+.predictDisease_icon-1 { top: 40%; right: 10%; }
+.predictDisease_icon-2 { top: 60%; left: 15%; }
+
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+@keyframes float {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(10deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+.predictDisease_glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 75, 135, 0.1);
+}
+
+.predictDisease_holographic {
+  position: relative;
+  overflow: hidden;
+}
+
+.predictDisease_holographic::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 25%,
+    rgba(255,255,255,0.1) 50%,
+    transparent 75%
+  );
+  animation: hologram 4s infinite linear;
+  pointer-events: none;
+}
+
+@keyframes hologram {
+  0% { transform: rotate(45deg) translateX(-50%); }
+  100% { transform: rotate(45deg) translateX(50%); }
+}
+
+.predictDisease_symptom-section {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 2fr 1fr;
+}
+
+.predictDisease_search-box .predictDisease_glass-card {
+  max-height: 100px;
+  padding:0.5rem;
+  position: relative;
+}
+
+.predictDisease_symptom-grid {
+  display: grid;
+  height:50vh;
+  overflow-y: scroll;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.predictDisease_selected-list {
+  display: grid;
+  gap: 0.8rem;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.predictDisease_selected-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem;
+  background: rgba(255,255,255,0.9);
+  border-radius: 12px;
+}
+
+.predictDisease_count-bubble {
+  background: var(--accent-blue);
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  margin-left: 0.8rem;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 1200px) {
+  .predictDisease_symptom-section {
+    grid-template-columns: 1fr;
+  }
+  
+  .predictDisease_symptom-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+}
+
+.predictDisease_sidebar {
+  width: 300px;
+  background: var(--glass-bg);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.predictDisease_sidebar-symptom-box {
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 1rem;
+  background: rgba(244, 247, 254, 0.6);
+  border-radius: 12px;
+}
+
+.predictDisease_sidebar-symptom-box .predictDisease_symptom-item {
+  background: #fff;
+  border: 2px solid rgba(33, 150, 243, 0.1);
+  padding: 0.8rem;
+  margin-bottom: 0.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-dark);
+}
+
+.predictDisease_sidebar-symptom-box .predictDisease_symptom-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(33, 150, 243, 0.1);
+  border-color: var(--accent-blue);
+}
+
+.predictDisease_sidebar-symptom-box::-webkit-scrollbar {
+  width: 8px;
+}
+
+.predictDisease_sidebar-symptom-box::-webkit-scrollbar-track {
+  background: rgba(33, 150, 243, 0.1);
+  border-radius: 4px;
+}
+
+.predictDisease_sidebar-symptom-box::-webkit-scrollbar-thumb {
+  background: rgba(33, 150, 243, 0.3);
+  border-radius: 4px;
+}
+
+.predictDisease_sidebar-symptom-box::-webkit-scrollbar-thumb:hover {
+  background: rgba(33, 150, 243, 0.5);
+}
+
+.predictDisease_symptom-card{
+  padding:2rem;
+  font-size:1rem;
+}
+
+.predictDisease_symptom-card:hover{
+  transform: scale(3rem);
+}
+
+.predictDisease_diagnose-btn:hover{
+  background-color: #1A237E;
+}
+
+.predictDisease_diagnosis-actions button {
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.predictDisease_diagnosis-actions button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+.predictDisease_loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.predictDisease_diagnosis-results {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.predictDisease_disease-card {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 10px;
+  border-radius: 8px;
+  margin: 5px 0;
+}

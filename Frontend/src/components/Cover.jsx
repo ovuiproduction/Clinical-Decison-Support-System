@@ -1,70 +1,59 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React from "react";
+import { Link } from "react-router-dom";
 import "../static/css/cover.css";
+import { FaStethoscope, FaHeartbeat, FaSearch, FaNotesMedical } from "react-icons/fa";
 
 export default function Cover() {
-  const [symptom, setSymptom] = useState("");
-  const [symptomsList, setSymptomsList] = useState([]);
-
-  // Add symptom to the list on "Enter" key press
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter" && symptom.trim()) {
-      setSymptomsList([...symptomsList, symptom.trim()]);
-      setSymptom("");
-    }
-  };
-
-  // Submit symptoms to Flask server
-  const handleSubmit = async () => {
-    if (symptomsList.length === 0) {
-      alert("Please add at least one symptom.");
-      return;
-    }
-
-    // Convert symptomsList array to a string joined by " and "
-    const symptomsString = symptomsList.join(" and ");
-
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/diagnosis",
-        { symptoms: symptomsString },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      let responseData = response.data;
-      
-      alert(`Diagnosis: ${response.data.diagnosis}`); // Display the diagnosis
-    } catch (error) {
-      console.error("Error submitting symptoms:", error);
-      alert("Failed to submit symptoms.");
-    }
-  };
-
   return (
     <div className="cover-container">
-      {/* Display the list of symptoms */}
-      <div className="symptoms-list">
-        {symptomsList.map((s, index) => (
-          <div key={index} className="symptom-item">
-            {s}
+      {/* Header Section */}
+      <header className="cover-header">
+        <div className="logo">
+          <FaStethoscope className="logo-icon" />
+          <span className="logo-text">CDSS</span>
+        </div>
+      </header>
+
+      {/* Main Content Section */}
+      <main className="cover-content">
+        <h1>Clinical Decision Support System</h1>
+        <p>Empowering healthcare with intelligent diagnosis and insights.</p>
+
+        {/* Feature Blocks */}
+        <div className="feature-blocks">
+          <div className="feature-card">
+            <FaHeartbeat className="feature-icon" />
+            <h2>Diagnosis Disease</h2>
+            <p>Analyze symptoms to predict potential conditions accurately.</p>
+            <Link to="/diagnosis-disease" className="feature-link">
+              Explore Diagnosis
+            </Link>
           </div>
-        ))}
-      </div>
 
-      {/* Input field for symptoms */}
-      <input
-        type="text"
-        value={symptom}
-        onChange={(e) => setSymptom(e.target.value)}
-        onKeyPress={handleKeyPress}
-        placeholder="Enter symptom and press Enter"
-      />
+          <div className="feature-card">
+            <FaNotesMedical className="feature-icon" />
+            <h2>Diagnosis CDSS</h2>
+            <p>Advanced decision-making with patient data and medical records.</p>
+            <Link to="/diagnosis-cdss" className="feature-link">
+              Explore CDSS
+            </Link>
+          </div>
 
-      {/* Submit button */}
-      <button onClick={handleSubmit}>Submit</button>
+          <div className="feature-card">
+            <FaSearch className="feature-icon" />
+            <h2>Research Insights</h2>
+            <p>Access in-depth medical research and insights to enhance care.</p>
+            <Link to="/research-insights" className="feature-link">
+              Explore Insights
+            </Link>
+          </div>
+        </div>
+      </main>
+
+      {/* Footer Section */}
+      <footer className="cover-footer">
+        <p>&copy; {new Date().getFullYear()} CDSS - All Rights Reserved.</p>
+      </footer>
     </div>
   );
 }

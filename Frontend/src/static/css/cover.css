@@ -1,80 +1,111 @@
-/* cover.css */
-
-/* Container styling */
 .cover-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh; /* Full screen height */
-    background: linear-gradient(to bottom right, #4e54c8, #8f94fb);
-    color: white;
-    font-family: Arial, sans-serif;
-  }
-  
-  /* Input field styling */
-  input {
-    width: 80%;
-    max-width: 400px;
-    padding: 10px;
-    margin: 20px 0;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    outline: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Symptoms list container */
-  .symptoms-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    max-width: 600px;
-    margin-bottom: 20px;
-    padding: 10px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  }
-  
-  /* Individual symptom item */
-  .symptom-item {
-    padding: 8px 12px;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(5px);
-    font-size: 14px;
-    transition: transform 0.2s;
-  }
-  
-  .symptom-item:hover {
-    transform: scale(1.1);
-  }
-  
-  /* Submit button styling */
-  button {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    background: #ff7e5f;
-    color: white;
-    transition: background 0.3s ease;
-  }
-  
-  button:hover {
-    background: #feb47b;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 600px) {
-    input {
-      width: 90%;
-    }
-    .symptoms-list {
-      max-width: 90%;
-    }
-  }
-  
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #e3f2fd, #bbdefb);
+  color: #1e3a5f;
+  font-family: "Arial", sans-serif;
+}
+
+.cover-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: #1e3a5f;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-icon {
+  font-size: 2rem;
+  margin-right: 0.5rem;
+}
+
+.logo-text {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.cover-content {
+  text-align: center;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.cover-content h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.cover-content p {
+  font-size: 1.2rem;
+  margin-bottom: 3rem;
+}
+
+.feature-blocks {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.feature-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  width: 300px;
+  transition: transform 0.3s ease;
+  text-align: center;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  color: #1e88e5;
+}
+
+.feature-card h2 {
+  font-size: 1.8rem;
+  margin: 1rem 0;
+}
+
+.feature-card p {
+  font-size: 1rem;
+  color: #555;
+}
+
+.feature-link {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.5rem;
+  background: #1e88e5;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.feature-link:hover {
+  background: #1565c0;
+}
+
+.cover-footer {
+  text-align: center;
+  padding: 1rem 0;
+  background: #1e3a5f;
+  color: white;
+}

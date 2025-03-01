@@ -1,0 +1,127 @@
+/* Main Container */
+.insights-container {
+    text-align: center;
+    padding: 40px 20px;
+    background: #e3f2fd; /* Light medical background */
+    min-height: 100vh;
+    margin-top:2rem;
+  }
+  
+
+  .insights-container h2 {
+    font-size: 2.5rem;
+    color: #0e4b75; 
+    margin-bottom: 30px;
+  }
+  
+  .study-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .study-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .study-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+ 
+  .study-card h3 {
+    color: #1e88e5;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+  
+ 
+  .study-card p {
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.5;
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999; /* Ensure it's above everything */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    height:90vh;
+    overflow-y: scroll;
+    width: 90%;
+    max-width: 800px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  ::-webkit-scrollbar{
+    width:0px;
+  }
+  
+  /* Close Button */
+  .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #d32f2f; /* Medical alert red */
+  }
+  
+  .close-btn:hover {
+    color: #b71c1c;
+  }
+  
+  /* Modal Bold Text */
+  .bold-text {
+    font-weight: bold;
+    color: #0e4b75;
+  }
+  
+  /* Modal Animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .study-grid {
+      grid-template-columns: 1fr; /* Single column on small screens */
+    }
+  
+    .modal-content {
+      padding: 30px;
+    }
+  }
+  

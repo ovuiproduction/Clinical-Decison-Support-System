@@ -7,13 +7,16 @@ import pandas as pd
 import google.generativeai as genai
 import os
 from scripts.retrieve_papers import retrieve_research_papers  # Ensure this script retrieves papers with DOIs
+from dotenv import load_dotenv
 
+load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
+API_KEY = os.getenv("GEMINI_API_KEY")
+
 # Configure Gemini API
-# genai.configure(api_key="AIzaSyDWkSL4GhjY_zxYgqt2gOfBUDL6kSvQ_30") 
-genai.configure(api_key="AIzaSyAkYVbt3jD7oqSEzyDjkJexTAu1xT_WCfw") 
+genai.configure(api_key=API_KEY) 
 
 
 # Initialize BioBERT embeddings (same model used during saving)

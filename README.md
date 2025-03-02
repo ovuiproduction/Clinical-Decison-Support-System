@@ -32,3 +32,34 @@ An advanced AI-powered platform for analyzing medical data, assisting in disease
 - Responds to doctors queries, guides through diagnostics, and provides medical advice.  
 
 ---
+
+## Project Structure
+
+CDSS/
+├── frontend/      # React
+│   ├── public/                 
+│   ├── src/
+│   │   ├── components/        
+│   │   ├── static/
+│   │   │    ├── css/
+│   │   │    └── images/
+│   │   ├── App.js
+│   │   └── index.js
+│   ├── package.json
+│
+├── backend/      # Flask
+│   ├── data/
+│   ├── models/
+│   ├── faiss_cdss_store/
+│   ├── faiss_sysmptoms_store/
+│   ├── script/
+│   ├── app.py
+│   ├── .env
+│
+├── X-Ray-System-server/  # Flask
+│   ├── models/
+│   ├── keras/
+│   ├── static/
+│   ├── templates/
+│   ├── app.py
+

@@ -116,6 +116,12 @@ pip install -r requirements.txt
 python app.py
 ```
 
+# Run the X-Ray-System
+```bash
+cd X-Ray-System
+python app.py
+```
+
 # Start the frontend
 ```bash
 cd frontend

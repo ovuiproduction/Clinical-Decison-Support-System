@@ -35,6 +35,7 @@ An advanced AI-powered platform for analyzing medical data, assisting in disease
 
 ## Project Structure
 
+```bash
 CDSS/
 ├── frontend/                 # React
 │   ├── public/
@@ -62,3 +63,5 @@ CDSS/
     ├── static/
     ├── templates/
     └── app.py
+```
+

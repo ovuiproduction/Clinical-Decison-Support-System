@@ -86,3 +86,14 @@ CDSS/
 - *Seamless integration of structured (EHR) & unstructured (research papers) data*.
 - *Multilingual, voice-enabled chatbot for accessibility*.
 
+## 🏆 Feasibility Analysis
+### ✅ Strategies for Overcoming Challenges
+- *Optimized Data Retrieval* – Uses *vector search* for fast knowledge access.
+- *Real-time Data Integration* – Connects *EHRs with latest research*.
+- *AI Explainability* – Ensures transparency in recommendations.
+
+### ⚠ Potential Challenges & Risks
+- *Medical Data Privacy* – Ensuring compliance with HIPAA/GDPR.
+- *Model Bias & Accuracy* – Regular updates & validation with experts.
+- *Scalability & Performance* – Optimized API and database queries.
+

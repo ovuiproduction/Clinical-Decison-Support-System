@@ -106,12 +106,19 @@ git clone https://github.com/ovuiproduction/VishwakarmaUnitedDevelopers_AB2_03
 cd clinical-cdss
 
 # Install dependencies
+```bash
+cd backend
 pip install -r requirements.txt
+```
 
 # Run the backend
+```bash
 python app.py
+```
 
 # Start the frontend
+```bash
 cd frontend
 npm install
 npm start
+```

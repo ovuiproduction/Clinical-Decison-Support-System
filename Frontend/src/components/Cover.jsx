@@ -6,7 +6,8 @@ import {
   FaHeartbeat,
   FaSearch,
   FaNotesMedical,
-  FaMicroscope
+  FaMicroscope,
+  FaXRay,
 } from "react-icons/fa";
 
 export default function Cover() {
@@ -47,15 +48,12 @@ export default function Cover() {
             </Link>
           </div>
 
-
           <div className="feature-card">
             <FaMicroscope className="feature-icon" />
             <h2>Blood Analyzer</h2>
-            <p>
-            Unlock insights from blood reports with advanced diagnostics.
-            </p>
+            <p>Unlock insights from blood reports with advanced diagnostics.</p>
             <Link to="/diagnosis-blood-report" className="feature-link">
-            Explore Report
+              Explore Report
             </Link>
           </div>
 
@@ -67,6 +65,18 @@ export default function Cover() {
             </p>
             <Link to="/research-insights" className="feature-link">
               Explore Insights
+            </Link>
+          </div>
+
+          <div className="feature-card">
+            <FaXRay className="feature-icon" />
+            <h2>X-Ray Analysis</h2>
+            <p>
+              Detect pneumonia with advanced X-ray image analysis for faster
+              diagnosis.
+            </p>
+            <Link to="/xray-analysis" className="feature-link">
+              Analyze X-Ray
             </Link>
           </div>
         </div>

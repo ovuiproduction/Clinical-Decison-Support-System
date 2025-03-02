@@ -65,3 +65,24 @@ CDSS/
     └── app.py
 ```
 
+## 🏗 Technologies & Frameworks
+- *Generative AI (Gemini)* – Provides intelligent medical insights.  
+- *RAG (Retrieval-Augmented Generation)* – Enhances response accuracy.  
+- *Vector Databases* – Fast & efficient search for medical knowledge.  
+- *Google Translate API* – Enables multilingual communication.  
+- *Speech Recognition (STT & TTS)* – Enables voice-based interactions.  
+- *Flask* – Backend API development.  
+- *React* – Interactive frontend UI.  
+
+## 💡 How It Solves the Problem
+- *Real-time Medical Insights* – Fetches & summarizes latest research.
+- *Patient-Specific Recommendations* – Integrates EHR data with AI.
+- *AI-Assisted Diagnostics* – Predicts diseases based on symptoms & reports.
+- *Multilingual Accessibility* – Supports diverse patient demographics.
+
+## ⚡ Innovation & Uniqueness
+- *Combines RAG & CDSS* for *context-aware medical insights*.
+- *AI-driven decision support* for *doctors & healthcare professionals*.
+- *Seamless integration of structured (EHR) & unstructured (research papers) data*.
+- *Multilingual, voice-enabled chatbot for accessibility*.
+

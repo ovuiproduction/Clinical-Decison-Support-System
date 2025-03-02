@@ -19,11 +19,3 @@ def retrieve_research_papers(query, top_k=5):
     
     results = [all_articles[i] for i in I[0]]
     return results
-
-# Example usage
-query = "Latest advancements in cancer treatment"
-top_papers = retrieve_research_papers(query)
-
-print("\n🔎 **Top 5 Relevant Research Papers:**\n")
-for paper in top_papers:
-    print(f"Title: {paper['title']}\nAbstract: {paper['abstract']}\nYear: {paper['year']}\n")

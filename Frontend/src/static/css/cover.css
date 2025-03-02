@@ -89,6 +89,8 @@
 }
 
 .feature-link {
+
+  bottom:2rem;
   display: inline-block;
   margin-top: 1.5rem;
   padding: 0.8rem 1.5rem;

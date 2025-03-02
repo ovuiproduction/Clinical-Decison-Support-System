@@ -6,8 +6,9 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 import pandas as pd
 import google.generativeai as genai
 import os
-from scripts.retrieve_papers import retrieve_research_papers  # Ensure this script retrieves papers with DOIs
+from scripts.retrieve_papers import retrieve_research_papers  
 from dotenv import load_dotenv
+import pdfplumber
 
 load_dotenv()
 app = Flask(__name__)
@@ -92,6 +93,24 @@ def analyze_papers(papers, query):
     
     return response.text
 
+# Function to extract text from a PDF
+def extract_text_from_pdf(pdf_file):
+    try:
+        with pdfplumber.open(pdf_file) as pdf:
+            text = "\n".join(page.extract_text() for page in pdf.pages if page.extract_text())
+        return text if text else "No readable text found in the PDF."
+    except Exception as e:
+        return f"Error extracting text: {str(e)}"
+
+# Function to analyze extracted text with Gemini AI
+def analyze_with_gemini(text):
+    try:
+        model = genai.GenerativeModel("gemini-1.5-pro")
+        response = model.generate_content(f"Analyze this blood report and provide key medical insights:\n{text}")
+        return response.text if response else "No insights found."
+    except Exception as e:
+        return f"Error with Gemini AI: {str(e)}"
+
 
 @app.route('/')
 def index():
@@ -136,6 +155,24 @@ def search_papers():
     insights = analyze_papers(papers, query)
 
     return jsonify({"papers": papers, "insights": insights})
+
+
+@app.route("/upload-blood-report", methods=["POST"])
+def upload_pdf():
+    print("Request Arrived")
+    if "file" not in request.files:
+        return jsonify({"error": "No file uploaded"}), 400
+    
+    file = request.files["file"]
+    if file.filename == "":
+        return jsonify({"error": "Empty file uploaded"}), 400
+
+    try:
+        extracted_text = extract_text_from_pdf(file)
+        insights = analyze_with_gemini(extracted_text)
+        return jsonify({"insights": insights})
+    except Exception as e:
+        return jsonify({"error": f"Error processing file: {str(e)}"}), 500
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-# 🏥 Medical Diagnosis Platform  
+# 🏥 CDSS - Clinical Decision Support System
 
 An advanced AI-powered platform for analyzing medical data, assisting in disease diagnosis, and providing intelligent healthcare insights. This platform integrates various diagnostic tools and an AI Medical Bot to enhance patient care and clinical decision-making.
 

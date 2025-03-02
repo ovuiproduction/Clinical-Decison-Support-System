@@ -35,8 +35,8 @@ An advanced AI-powered platform for analyzing medical data, assisting in disease
 
 ## Project Structure
 
-CDSS/ 
-├── frontend/              # React
+CDSS/
+├── frontend/                 # React
 │   ├── public/
 │   ├── src/
 │   │   ├── components/
@@ -45,20 +45,20 @@ CDSS/
 │   │   │   └── images/
 │   │   ├── App.js
 │   │   └── index.js
-│   ├── package.json
+│   └── package.json
 │
-├── backend/               # Flask
+├── backend/                  # Flask
 │   ├── data/
 │   ├── models/
 │   ├── faiss_cdss_store/
 │   ├── faiss_sysmptoms_store/
 │   ├── script/
 │   ├── app.py
-│   ├── .env
+│   └── .env
 │
-├── X-Ray-System-server/   # Flask
-│   ├── models/
-│   ├── keras/
-│   ├── static/
-│   ├── templates/
-│   ├── app.py
+└── X-Ray-System-server/      # Flask
+    ├── models/
+    ├── keras/
+    ├── static/
+    ├── templates/
+    └── app.py

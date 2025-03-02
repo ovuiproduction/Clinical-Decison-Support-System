@@ -100,7 +100,7 @@ CDSS/
 - *Scalability & Performance* – Optimized API and database queries.
 
 ## 🚀 Setup & Installation
-bash
+
 # Clone the repository
 git clone https://github.com/ovuiproduction/VishwakarmaUnitedDevelopers_AB2_03
 cd clinical-cdss

@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import "../static/css/cover.css";
 import {
@@ -10,7 +11,10 @@ import {
   FaXRay,
 } from "react-icons/fa";
 
+import AIBot from "./AIBot"
+
 export default function Cover() {
+  const [aibot,setAIBot] = useState(true)
   return (
     <div className="cover-container">
       {/* Header Section */}
@@ -75,12 +79,13 @@ export default function Cover() {
               Detect pneumonia with advanced X-ray image analysis for faster
               diagnosis.
             </p>
-            <Link to="/xray-analysis" className="feature-link">
+            <Link to="http://localhost:4000/" className="feature-link">
               Analyze X-Ray
             </Link>
           </div>
         </div>
       </main>
+      {aibot && (<AIBot />)}
       <footer className="cover-footer">
         <p>&copy; {new Date().getFullYear()} CDSS - All Rights Reserved.</p>
       </footer>

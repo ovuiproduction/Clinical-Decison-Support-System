@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pneumonia Detector</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary-blue: #2196f3;
+        --secondary-blue: #1976d2;
+        --background: #ffffff;
+        --text-dark: #2d3436;
+        --text-light: #636e72;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        background: var(--background);
+        color: var(--text-dark);
+        min-height: 100vh;
+      }
+
+      .floating-icons {
+        position: fixed;
+        top: 20%;
+        right: 5%;
+        z-index: 0;
+      }
+
+      .icon-float {
+        font-size: 3rem;
+        color: var(--primary-blue);
+        opacity: 0.1;
+        margin: 1rem;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      .delay-1 {
+        animation-delay: 0.5s;
+      }
+      .delay-2 {
+        animation-delay: 1s;
+      }
+
+      .main-heading {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--text-dark);
+      }
+
+      .stats-container {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .stat-card {
+        background: rgba(33, 150, 243, 0.1);
+        padding: 1.5rem;
+        border-radius: 10px;
+        border: 1px solid var(--primary-blue);
+        text-align: center;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: slideUp 0.5s ease forwards;
+      }
+
+      .upload-form {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 2rem;
+        border-radius: 15px;
+        margin: 2rem auto;
+        max-width: 600px;
+        position: relative;
+        z-index: 1;
+        box-shadow: 0 4px 15px rgba(33, 150, 243, 0.1);
+      }
+
+      .upload-area {
+        border: 2px dashed var(--primary-blue);
+        border-radius: 10px;
+        padding: 3rem;
+        text-align: center;
+        margin-bottom: 2rem;
+        position: relative;
+        background: rgba(33, 150, 243, 0.05);
+      }
+
+      .upload-icon {
+        font-size: 4rem;
+        color: var(--primary-blue);
+        margin-bottom: 1rem;
+      }
+
+      .custom-file-input {
+        background: var(--primary-blue);
+        color: white;
+        padding: 0.8rem 1.5rem;
+        border-radius: 5px;
+        transition: background 0.3s ease;
+        display: inline-block;
+        cursor: pointer;
+      }
+
+      .predict-button {
+        background: var(--primary-blue);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 5px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        width: 100%;
+        transition: background 0.3s ease;
+      }
+
+      .predict-button:hover {
+        background: var(--secondary-blue);
+      }
+
+      .result-container {
+        background: rgba(33, 150, 243, 0.1);
+        padding: 2rem;
+        border-radius: 10px;
+        margin: 2rem auto;
+        max-width: 600px;
+        animation: zoomIn 0.3s ease;
+        border: 1px solid var(--primary-blue);
+      }
+
+      .image-preview {
+        max-width: 600px;
+        margin: 2rem auto;
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 2px solid var(--primary-blue);
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      @keyframes slideUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes zoomIn {
+        from {
+          transform: scale(0.9);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .file-input {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <hr
+      style="margin-top: 0; opacity: 1"
+      color="#2196F3"
+      size="10"
+      width="100%"
+    />
+    <h1 class="main-heading text-center mt-5">
+      Pneumonia <span style="color: var(--primary-blue)">Detection</span>
+    </h1>
+
+    <form
+      class="upload-form"
+      action="\"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <div class="upload-area">
+        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+        <h2>Upload Chest X-ray Image</h2>
+        <label class="file-input-label">
+          <input class="file-input" type="file" name="imagefile" required />
+          <span class="custom-file-input">Select File</span>
+        </label>
+      </div>
+      <button type="submit" class="predict-button">Analyze Image</button>
+    </form>
+
+    {% if prediction %}
+    <div class="result-container">
+      <h2 class="text-center">Person is Pneumonia {{prediction}}</h2>
+      <div class="confidence-meter mt-3">
+        <div class="progress" style="height: 20px">
+          <div
+            class="progress-bar"
+            style="width: 95%; background-color: var(--primary-blue)"
+          >
+            95% Confidence
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %} {% if imagePath %}
+    <div class="image-preview">
+      <img src="{{imagePath}}" alt="X-ray preview" style="width: 100%" />
+      <div class="analysis-overlay"></div>
+    </div>
+    {% endif %}
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Show stats after delay
+        setTimeout(() => {
+          document.querySelectorAll(".stat-card").forEach((card) => {
+            card.style.display = "block";
+          });
+        }, 1000);
+
+        // File input handling
+        const fileInput = document.querySelector(".file-input");
+        fileInput.addEventListener("change", (e) => {
+          const fileName = e.target.files[0].name;
+          document.querySelector(".custom-file-input").textContent = fileName;
+        });
+      });
+    </script>
+  </body>
+</html>

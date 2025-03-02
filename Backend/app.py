@@ -1,4 +1,4 @@
-from flask import Flask,request,jsonify
+from flask import Flask,request,jsonify,send_file
 from flask_cors import CORS
 from langchain_community.vectorstores import FAISS 
 from langchain.schema import Document
@@ -9,6 +9,12 @@ import os
 from scripts.retrieve_papers import retrieve_research_papers  
 from dotenv import load_dotenv
 import pdfplumber
+from googletrans import Translator
+from langdetect import detect
+from gtts import gTTS
+import speech_recognition as sr
+from concurrent.futures import ThreadPoolExecutor
+import re
 
 load_dotenv()
 app = Flask(__name__)
@@ -19,6 +25,9 @@ API_KEY = os.getenv("GEMINI_API_KEY")
 # Configure Gemini API
 genai.configure(api_key=API_KEY) 
 
+translator = Translator()
+recognizer = sr.Recognizer()
+executor = ThreadPoolExecutor(max_workers=3)  # Run tasks in parallel
 
 # Initialize BioBERT embeddings (same model used during saving)
 embedding_model = "dmis-lab/biobert-base-cased-v1.1"
@@ -27,6 +36,7 @@ embeddings = HuggingFaceEmbeddings(model_name=embedding_model)
 
 vector_store = FAISS.load_local("faiss_symptoms_store", embeddings,allow_dangerous_deserialization=True)
 vector_store_cdss = FAISS.load_local("faiss_cdss_store", embeddings,allow_dangerous_deserialization=True)
+
 
 
 def search(query,k):
@@ -48,6 +58,8 @@ def search_cdss(birth_date, gender, conditions, observations, top_k=3):
         }
         for doc in results
     ]
+
+
 
 def analyze_papers(papers, query):
     """Generate AI insights by extracting key questions, findings, and solutions from research papers using Gemini Pro."""
@@ -93,7 +105,9 @@ def analyze_papers(papers, query):
     
     return response.text
 
-# Function to extract text from a PDF
+
+
+
 def extract_text_from_pdf(pdf_file):
     try:
         with pdfplumber.open(pdf_file) as pdf:
@@ -102,7 +116,6 @@ def extract_text_from_pdf(pdf_file):
     except Exception as e:
         return f"Error extracting text: {str(e)}"
 
-# Function to analyze extracted text with Gemini AI
 def analyze_with_gemini(text):
     try:
         model = genai.GenerativeModel("gemini-1.5-pro")
@@ -110,6 +123,30 @@ def analyze_with_gemini(text):
         return response.text if response else "No insights found."
     except Exception as e:
         return f"Error with Gemini AI: {str(e)}"
+
+
+
+
+def get_ai_response(prompt):
+    """Fetch response from Gemini AI and handle errors."""
+    try:
+        model = genai.GenerativeModel("gemini-1.5-pro")
+        response = model.generate_content(prompt)
+
+        if not response or not response.text:
+            raise ValueError("Empty response from Gemini API")
+
+        return response.text.strip()
+    except Exception as e:
+        print(f"Error fetching AI response: {e}")
+        return "AI system is currently unavailable. Please try again later."
+
+def generate_tts(text, lang, audio_file):
+    """Convert text to speech and save as an audio file."""
+    tts = gTTS(text=text, lang=lang)
+    tts.save(audio_file)
+
+
 
 
 @app.route('/')
@@ -173,6 +210,84 @@ def upload_pdf():
         return jsonify({"insights": insights})
     except Exception as e:
         return jsonify({"error": f"Error processing file: {str(e)}"}), 500
+
+
+
+@app.route("/ask", methods=["POST"])
+def ask_gemini():
+    data = request.json
+    query = data.get("query", "")
+    detailed = data.get("detailed", False)
+
+    if not query:
+        return jsonify({"error": "No query provided"}), 400
+
+    try:
+        detected_lang = detect(query)
+
+        # Translate to English if required
+        translated_query = (
+            translator.translate(query, src=detected_lang, dest="en").text
+            if detected_lang != "en"
+            else query
+        )
+
+        prompt = (
+            f"You are a medical assistant. Provide a detailed response: {translated_query}"
+            if detailed
+            else f"You are a medical assistant. Answer briefly: {translated_query}"
+        )
+
+       
+        ai_future = executor.submit(get_ai_response, prompt)
+        ai_response = ai_future.result() 
+
+        ai_response = re.sub(r"\*+", "", ai_response).strip()
+    
+        final_response = (
+            translator.translate(ai_response, src="en", dest=detected_lang).text
+            if detected_lang != "en"
+            else ai_response
+        )
+
+        audio_file = "response.mp3"
+        tts_future = executor.submit(generate_tts, final_response, detected_lang, audio_file)
+        tts_future.result()  # Ensure TTS finishes before returning response
+
+        return jsonify({"response": final_response, "audio": "/audio"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/audio", methods=["GET"])
+def get_audio():
+    audio_file = "response.mp3"
+    if os.path.exists(audio_file):
+        return send_file(audio_file, as_attachment=True)
+    else:
+        return jsonify({"error": "Audio file not found"}), 404
+
+
+@app.route("/voice-input", methods=["POST"])
+def voice_input():
+    if "audio" not in request.files:
+        return jsonify({"error": "No audio file provided"}), 400
+
+    audio_file = request.files["audio"]
+    audio_path = "user_audio.wav"
+    audio_file.save(audio_path)
+
+    try:
+        with sr.AudioFile(audio_path) as source:
+            audio = recognizer.record(source)
+            detected_text = recognizer.recognize_google(audio)
+
+        detected_lang = detect(detected_text)
+
+        return jsonify({"transcribed_text": detected_text, "language": detected_lang}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 
 if __name__ == '__main__':

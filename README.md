@@ -27,7 +27,8 @@ An advanced AI-powered platform for analyzing medical data, assisting in disease
 - Offers accurate and quick evaluation for early diagnosis.  
 
 ### 🤖 AI Medical Bot  
-- An intelligent chatbot for real-time medical assistance.  
-- Responds to patient queries, guides through diagnostics, and provides medical advice.  
+- An intelligent chatbot for real-time medical assistance.
+- Supports multilingual input for both voice and text communication.
+- Responds to doctors queries, guides through diagnostics, and provides medical advice.  
 
 ---

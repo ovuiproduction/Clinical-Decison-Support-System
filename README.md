@@ -102,8 +102,10 @@ CDSS/
 ## 🚀 Setup & Installation
 
 # Clone the repository
+```bash
 git clone https://github.com/ovuiproduction/VishwakarmaUnitedDevelopers_AB2_03
 cd clinical-cdss
+```
 
 # Install dependencies
 ```bash

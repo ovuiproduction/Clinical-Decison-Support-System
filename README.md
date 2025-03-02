@@ -4,6 +4,8 @@ An advanced AI-powered platform for analyzing medical data, assisting in disease
 
 ---
 
+## [Project Demo](https://youtu.be/y7JhUQbb04Y)
+
 ## 📌 Features  
 
 ### 🔍 Disease Diagnosis  

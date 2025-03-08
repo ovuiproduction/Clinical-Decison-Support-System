@@ -33,7 +33,14 @@ An advanced AI-powered platform for analyzing medical data, assisting in disease
 - Supports multilingual input for both voice and text communication.
 - Responds to doctors queries, guides through diagnostics, and provides medical advice.  
 
----
+### Risk Management
+- Risk score based on patient data
+
+### Confidance Score 
+- Confidance score of recommendated text
+
+### EHR System 
+- Eletronic Health Record System
 
 ## Project Structure
 
